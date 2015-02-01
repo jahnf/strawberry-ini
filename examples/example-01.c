@@ -30,9 +30,15 @@ int main ( int argc, char **argv )
 
             { /* iterate over all sections and print name and item count*/
                 ini_section *section = dict->first_section;
-                for( ; section != NULL; section = section->next )
+                for( ; section != NULL; section = section->next ) {
                     printf("section [%s] : item_count = %u\n",
                            section->name, ini_section_item_count(section) );
+                    /* loop through section items */
+                    ini_item *item = section->first_item;
+                    for( ; item != NULL; item = item->next ) {
+                        printf("%s=%s\n", item->key, item->value );
+                    }
+                }
             }
 
             { /* look up defined values in the dictionary */
@@ -48,7 +54,7 @@ int main ( int argc, char **argv )
              *  see the documentations in ini_dictionary.h */
 
             /* we need to make sure we free the
-             * allocated dictionary memory*/
+             * allocated dictionary memory */
             ini_dictionary_free( dict );
         }
     } else {
