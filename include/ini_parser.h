@@ -32,7 +32,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 /**
  * @file ini_parser.h
- * @author Jahn Fuchs
  * @brief iniParse - parse configuration files.
  *
  * @mainpage strawberry-ini API Documentation
@@ -45,8 +44,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * - @link ini_reader.h iniReader @endlink: fills a dictionary, uses
  *   @link ini_parser.h iniParser @endlink and
  *   @link ini_dictionary.h iniDictionary @endlink to do that.
- *
- * @todo Add more tests for parser and dictionary.
+ *  
+ * See also the @link readme README @endlink for an introduction.
+ * 
+ * Find the latest version on github: https://github.com/jahnf/strawberry-ini
  */
 
 /* Changelog / strawberry-ini parser
@@ -85,6 +86,7 @@ enum {
  */
 const char* ini_errcode_tostr( const int err_code );
 
+/** Handler function callback signature. */
 typedef int (*ini_handler) (void* user, const char* section,
                               const char* name, const char* value) ;
 

@@ -33,7 +33,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 /**
  * @file ini_dictionary.h
- * @author Jahn Fuchs
  * @brief iniDictionary - holds key,value pairs and sections of configurations
  */
 
@@ -44,6 +43,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 extern "C" {
 #endif
 
+/** The version number of the strawberry-ini dictionary. */
 #define VERSION_STRAWBERRY_INI_DICTIONARY "1.0.0"
 
 /** Nonzero to compile with functionality to write a dictionary
@@ -52,6 +52,7 @@ extern "C" {
 #define INI_DICTIONARY_DUMP 0
 #endif
 
+/** An ini item contains a key/value pair and a pointer to the next item. */
 typedef struct ini_item ini_item;
 /** An ini item contains a key/value pair and a pointer to the next item. */
 struct ini_item {
@@ -60,6 +61,8 @@ struct ini_item {
     ini_item *next;      /*!< pointer to next item */
 };
 
+/** An ini section containing the name and pointer to the next section
+ * and the first and last item within the section. */
 typedef struct ini_section ini_section;
 /** An ini section containing the name and pointer to the next section
  * and the first and last item within the section. */

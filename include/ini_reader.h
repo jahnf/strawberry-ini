@@ -33,7 +33,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 /**
  * @file ini_reader.h
- * @author Jahn Fuchs
  * @brief iniReader - read configuration into a dictionary, uses
  *   @link ini_parser.h iniParser @endlink and
  *   @link ini_dictionary.h iniDictionary @endlink to do that.
@@ -49,6 +48,7 @@ extern "C" {
 #include "ini_parser.h"
 #include "ini_dictionary.h"
 
+/** The version number of the strawberry-ini reader. */
 #define VERSION_STRAWBERRY_INI_READER "1.0.0"
 
 /**
