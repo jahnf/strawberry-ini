@@ -1,5 +1,6 @@
-strawberry-ini {#readme}
+strawberry-ini 
 ==============
+[![Build Status](https://travis-ci.org/jahnf/strawberry-ini.svg?branch=master)](https://travis-ci.org/jahnf/strawberry-ini)
 
 > Note: The links and references in this markdown file are made
 > for github and won't work when shown within the generated
