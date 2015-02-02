@@ -26,55 +26,54 @@ int basic_callback_handler( void* user, const char* section,
     return INI_OKAY;
 }
 
+#define TEST1_SECTION1 "section1"
+#define TEST1_SECTION2 "_section2"
+#define TEST1_SECTION3 "WWW_sec3"
+#define TEST1_SECTION4 "AAA-seC4"
 
-/* test for correct section numbers*/
+static int test1_handler( void* user, const char* section,
+              const char* name, const char* value) {
+    if( name == NULL ) {
+        switch( ++((ud_t*)(user))->sec_count ) {
+        case 1:
+            fail_unless( strcasecmp(section, TEST1_SECTION1) == 0 );
+            break;
+        case 2:
+            fail_unless( strcasecmp(section, TEST1_SECTION2) == 0 );
+            break;
+        case 3:
+            fail_unless( strcasecmp(section, TEST1_SECTION3) == 0 );
+            break;
+        case 4:
+            fail_unless( strcasecmp(section, TEST1_SECTION4) == 0 );
+            break;
+        default:
+            break;
+        }
+    } else
+        ++((ud_t*)(user))->key_count;
+    return INI_OKAY;
+}
+
+/* test for correct section parsing */
 START_TEST (ini_parser_sections)
 {
-    #define SECTION1 "section1"
-    #define SECTION2 "_section2"
-    #define SECTION3 "WWW_sec3"
-    #define SECTION4 "AAA-seC4"
-
-    fail_if( sizeof(SECTION1)-1 > INI_MAX_SECTION 
-             || sizeof(SECTION2)-1 > INI_MAX_SECTION
-             || sizeof(SECTION3)-1 > INI_MAX_SECTION
-             || sizeof(SECTION4)-1 > INI_MAX_SECTION, 
+    fail_if( sizeof(TEST1_SECTION1)-1 > INI_MAX_SECTION 
+             || sizeof(TEST1_SECTION2)-1 > INI_MAX_SECTION
+             || sizeof(TEST1_SECTION3)-1 > INI_MAX_SECTION
+             || sizeof(TEST1_SECTION4)-1 > INI_MAX_SECTION, 
              "INI_MAX_SECTION is too small to run test." );   
              
     fail_if( INI_SECTION_CALLBACK == 0, "INI_SECTION_CALLBACKS needs to be != 0 to perform test");
     
-    int thandler( void* user, const char* section,
-                  const char* name, const char* value) {
-        if( name == NULL ) {
-            switch( ++((ud_t*)(user))->sec_count ) {
-            case 1:
-                fail_unless( strcasecmp(section, SECTION1) == 0 );
-                break;
-            case 2:
-                fail_unless( strcasecmp(section, SECTION2) == 0 );
-                break;
-            case 3:
-                fail_unless( strcasecmp(section, SECTION3) == 0 );
-                break;
-            case 4:
-                fail_unless( strcasecmp(section, SECTION4) == 0 );
-                break;
-            default:
-                break;
-            }
-        } else
-            ++((ud_t*)(user))->key_count;
-        return INI_OKAY;
-    }
-
     const char config[] =
             "; comment4\n"
-            "[" SECTION1 "]\n"
+            "[" TEST1_SECTION1 "]\n"
             "\r\t\n"
-            "[" SECTION2 "]\n"
+            "[" TEST1_SECTION2 "]\n"
             "key:val\n"
-            "[" SECTION3 "]\n"
-            "[" SECTION4 "]"
+            "[" TEST1_SECTION3 "]\n"
+            "[" TEST1_SECTION4 "]"
     ;
 
     int fds[2];
@@ -86,13 +85,12 @@ START_TEST (ini_parser_sections)
                  "could not write to fds[1]");
     close( fds[1] );
     unsigned line_err;
-    ini_parse_file( fp, thandler, &ud, &line_err );
+    ini_parse_file( fp, test1_handler, &ud, &line_err );
 
     fail_unless( ud.sec_count == 4 );
     fail_unless( ud.key_count == 1 );
 
     close( fds[0] );
-
 }
 END_TEST
 
