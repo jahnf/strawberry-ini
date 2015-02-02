@@ -91,7 +91,7 @@ typedef int (*ini_handler) (void* user, const char* section,
                               const char* name, const char* value) ;
 
 /** Parse given INI-style file. May have [section]s, name/value pairs
- * (whitespaces are stripped), and comments starting with @c ';' (semicolon)
+ * (white spaces are stripped), and comments starting with @c ';' (semicolon)
  * or @c '#'. The section name is empty ("") if a name/value pair is
  * parsed before any section heading.
  * @c name=value and @c name:value pairs are also supported.
@@ -103,7 +103,7 @@ typedef int (*ini_handler) (void* user, const char* section,
  *
  * If #INI_SUPPORT_QUOTES is not set to 0 values can be surrounded by
  * single or double quotes, i.e. if values need to have leading or
- * trailing whitespaces.
+ * trailing white spaces.
  *
  * Returns #INI_OKAY on success, @b INI_ERR_xxx codes else.
  * @b line_err is set to the error line number if available.
@@ -116,13 +116,13 @@ int ini_parse(const char* filename, ini_handler handler,
               void* user, unsigned* line_err);
 
 /** Same as ini_parse(), but takes a FILE* argument instead of a filename.
- * This function doesn't close the file when it's finished --
- * the caller must do that.
+ * This function does not close the file when finished --
+ * it's the callers responsibility.
  */
 int ini_parse_file(FILE* file, ini_handler handler,
                    void* user, unsigned* line_err);
 
-/** Nonzero to allow multi-line value parsing, where the line has to
+/** Non-zero to allow multi-line value parsing, where the line has to
  * end with a backslash (\) so indicate the continuation in the next
  * line - if not otherwise defined the default is 1.
  * If multi-line parsing is allowed, the length of concatenated
@@ -132,7 +132,7 @@ int ini_parse_file(FILE* file, ini_handler handler,
 #define INI_ALLOW_MULTILINE 1
 #endif
 
-/** Nonzero for section callbacks - if not otherwise defined the default is 1.
+/** Non-zero for section callbacks - if not otherwise defined the default is 1.
  * The handler function will get called if a section is found,
  * parameters name and value are NULL in this case.
  */
@@ -140,21 +140,21 @@ int ini_parse_file(FILE* file, ini_handler handler,
 #define INI_SECTION_CALLBACK 1
 #endif
 
-/** Nonzero to allow a UTF-8 BOM sequence (0xEF 0xBB 0xBF) at the start
+/** Non-zero to allow a UTF-8 BOM sequence (0xEF 0xBB 0xBF) at the start
   * of the file - if not otherwise defined the default is 1.
   */
 #ifndef INI_SKIP_BOM
 #define INI_SKIP_BOM 1
 #endif
 
-/** Nonzero to use stack, zero to use heap (malloc/free) -
+/** Non-zero to use stack, zero to use heap (malloc/free) -
  * if not otherwise defined the default is 1.
  */
 #ifndef INI_USE_STACK
 #define INI_USE_STACK 1
 #endif
 
-/** Nonzero to support quotes (double and single quotes) -
+/** Non-zero to support quotes (double and single quotes) -
  * if not otherwise defined the default is 1.
  */
 #ifndef INI_SUPPORT_QUOTES
@@ -174,20 +174,20 @@ int ini_parse_file(FILE* file, ini_handler handler,
 #define INI_MAX_SECTION 50
 #endif
 
-/** Nonzero to immediately stop parsing on error -
+/** Non-zero to immediately stop parsing on error -
  * if not otherwise defined the default is 1. */
 #ifndef INI_STOP_ON_ERROR
 #define INI_STOP_ON_ERROR 1
 #endif
 
-/** Nonzero to make section and name strings lower case
- * - if not otherwise defined the default is 1.
+/** Non-zero to make section and name strings lower case - 
+ * if not otherwise defined the default is 1.
  */
 #ifndef INI_NAME_AND_SECTION_LOWER_CASE
 #define INI_NAME_AND_SECTION_LOWER_CASE 1
 #endif
 
-/** Nonzero to treat overlong lines as an error -
+/** Non-zero to treat overlong lines as an error -
  * if not otherwise defined the default is 0.
  * If over long lines are not treated as an error, lines are simply
  * cut off at INI_MAX_LINE characters.
